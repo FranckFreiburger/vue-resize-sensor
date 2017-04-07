@@ -1,24 +1,44 @@
+<template>
+	<div><div @scroll="scroll"><div></div></div><div @scroll="scroll"><div></div></div></div>
+</template>
+
 <script>
+
+var requestAnimationFrame = window.requestAnimationFrame ||
+	window.mozRequestAnimationFrame ||
+	window.webkitRequestAnimationFrame ||
+	function(fn) {
+		
+		return window.setTimeout(fn, 20);
+	};
 
 module.exports = {
 
 	// thanks to https://github.com/marcj/css-element-queries
-	template: '<div><div @scroll="scroll"><div></div></div><div @scroll="scroll"><div></div></div></div>',
 	methods: {
 		scroll: function(ev) {
+			
+			if ( this.afci !== 0 )
+				return;
 
-			var size = { width: this.$el.offsetWidth, height: this.$el.offsetHeight };
-			
-			if ( size.width != this.lastSize.width || size.height != this.lastSize.height ) {
-			
-				this.lastSize = size;
-				this.$emit('resize', size);
-			}
-			
+			this.afci = requestAnimationFrame(function() {
+				
+				var size = { width: this.$el.offsetWidth, height: this.$el.offsetHeight };
+				if ( size.width != this.lastSize.width || size.height != this.lastSize.height ) {
+	
+					this.lastSize = size;
+					this.$emit('resize', size);
+				};
+
+				this.afci = 0;
+			}.bind(this));
+
 			this.reset();
 		}
 	},
 	mounted: function() {
+		
+		this.afci = 0; // https://html.spec.whatwg.org/multipage/webappapis.html#animation-frame-callback-identifier
 		
 		var style = 'position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;';
 		var styleChild = 'position: absolute; left: 0; top: 0; transition: 0s;';
