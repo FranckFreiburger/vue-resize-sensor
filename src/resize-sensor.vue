@@ -4,7 +4,7 @@
 
 <script>
 
-var requestAnimationFrame = window.requestAnimationFrame ||
+var requestAnimationFrame = window.requestAnimationFrame.bind(window) ||
 	window.mozRequestAnimationFrame.bind(window) ||
 	window.webkitRequestAnimationFrame.bind(window) ||
 	function(fn) {
