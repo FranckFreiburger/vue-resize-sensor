@@ -1,6 +1,6 @@
 {
   "name": "vue-resize-sensor",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "detect container resizing",
   "main": "src/resize-sensor.vue",
   "scripts": {
