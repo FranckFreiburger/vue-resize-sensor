@@ -4,13 +4,15 @@
 
 <script>
 
-var requestAnimationFrame = window.requestAnimationFrame.bind(window) ||
-	window.mozRequestAnimationFrame.bind(window) ||
-	window.webkitRequestAnimationFrame.bind(window) ||
+var requestAnimationFrame = (
+	window.requestAnimationFrame ||
+	window.mozRequestAnimationFrame ||
+	window.webkitRequestAnimationFrame ||
 	function(fn) {
 		
-		return window.setTimeout(fn, 20);
-	};
+		return this.setTimeout(fn, 20);
+	}
+	).bind(window);
 
 module.exports = {
 
