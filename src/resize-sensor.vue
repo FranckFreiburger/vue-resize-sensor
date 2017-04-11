@@ -5,8 +5,8 @@
 <script>
 
 var requestAnimationFrame = window.requestAnimationFrame ||
-	window.mozRequestAnimationFrame ||
-	window.webkitRequestAnimationFrame ||
+	window.mozRequestAnimationFrame.bind(window) ||
+	window.webkitRequestAnimationFrame.bind(window) ||
 	function(fn) {
 		
 		return window.setTimeout(fn, 20);
