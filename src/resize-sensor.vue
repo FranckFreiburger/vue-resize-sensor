@@ -54,7 +54,17 @@ module.exports = {
 		
 		if ( !('AnimationEvent' in window) ) {
 			
-			// TBD: poll until this.$el is visible
+			var poll = function() {
+				
+				window.setTimeout(function() {
+					
+					if ( this.$el.offsetWidth === 0 && this.$el.offsetHeight === 0 )
+						poll();
+					else
+						this.update();
+				}.bind(this), 20)
+			}.bind(this);
+			poll();
 		}
 
 		this.$el.style.cssText = style;
