@@ -1,6 +1,12 @@
 <template>
-	<div><div @scroll="scroll"><div></div></div><div @scroll="scroll"><div></div></div></div>
+	<div @animationstart="update"><div @scroll="update"><div></div></div><div @scroll="update"><div></div></div></div>
 </template>
+
+<style>
+@keyframes resizeSensorVisibility {
+	from { top: 0; }
+}
+</style>
 
 <script>
 
@@ -18,7 +24,7 @@ module.exports = {
 
 	// thanks to https://github.com/marcj/css-element-queries
 	methods: {
-		scroll: function(ev) {
+		update: function(ev) {
 			
 			if ( this.afci !== 0 )
 				return;
@@ -26,7 +32,8 @@ module.exports = {
 			this.afci = requestAnimationFrame(function() {
 				
 				var size = { width: this.$el.offsetWidth, height: this.$el.offsetHeight };
-				if ( size.width != this.lastSize.width || size.height != this.lastSize.height ) {
+				
+				if ( size.width !== this.lastSize.width || size.height !== this.lastSize.height ) {
 	
 					this.lastSize = size;
 					this.$emit('resize', size);
@@ -42,8 +49,13 @@ module.exports = {
 		
 		this.afci = 0; // https://html.spec.whatwg.org/multipage/webappapis.html#animation-frame-callback-identifier
 		
-		var style = 'position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;';
-		var styleChild = 'position: absolute; left: 0; top: 0; transition: 0s;';
+		var style = 'position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden; animation-name: resizeSensorVisibility';
+		var styleChild = 'position: absolute; left: 0; top: 0;';
+		
+		if ( !('AnimationEvent' in window) ) {
+			
+			// TBD: poll until this.$el is visible
+		}
 
 		this.$el.style.cssText = style;
 		
@@ -58,8 +70,8 @@ module.exports = {
 		shrink.style.cssText = style;
 		shrink.firstChild.style.cssText = styleChild + ' width: 200%; height: 200%;';
 		
-		this.lastSize = { width: this.$el.offsetWidth, height: this.$el.offsetHeight };
-
+		this.lastSize = { width: -1, height: -1 };
+		
 		this.reset = function() {
 
 			expand.scrollLeft = 100000;
