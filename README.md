@@ -25,4 +25,4 @@ A size object `{ width, height }`
 
 
 ## Browser support
-Any browser, IE7+
+Same browser support than [Vue.js 2](https://github.com/vuejs/vue/blob/dev/README.md)
