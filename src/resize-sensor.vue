@@ -5,17 +5,6 @@
 </style>
 
 <script>
-
-var requestAnimationFrame = (
-	window.requestAnimationFrame ||
-	window.mozRequestAnimationFrame ||
-	window.webkitRequestAnimationFrame ||
-	function(fn) {
-		
-		return this.setTimeout(fn, 20);
-	}
-	).bind(window);
-
 module.exports = {
 
 	// thanks to https://github.com/marcj/css-element-queries
