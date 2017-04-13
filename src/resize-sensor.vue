@@ -35,21 +35,19 @@ module.exports = {
 	},
 	render: function(create) {
 		
-		var vm = this;
-		
 		var style = 'position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;';
 		var styleChild = 'position: absolute; left: 0; top: 0;';
 
 		return create('div', {
 			style: style + ' animation-name: resizeSensorVisibility;',
 			on: {
-				'~animationstart': vm.update,
+				'~animationstart': this.update,
 			}
 		},[
 			create('div', {
 				style: style,
 				on: {
-					scroll: vm.update
+					scroll: this.update
 				}
 			}, [
 				create('div', {
@@ -59,7 +57,7 @@ module.exports = {
 			create('div', {
 				style: style,
 				on: {
-					scroll: vm.update
+					scroll: this.update
 				}
 			}, [
 				create('div', {
