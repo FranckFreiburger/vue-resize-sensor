@@ -97,8 +97,6 @@ module.exports = {
 		if ( this.$el.offsetParent !== this.$el.parentNode )
 			this.$el.parentNode.style.position = 'relative';
 
-		this.lastSize = { width: -1, height: -1 };
-
 		var expand = this.$el.childNodes[0];
 		var shrink = this.$el.childNodes[1];
 
