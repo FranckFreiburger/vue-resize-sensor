@@ -42,13 +42,13 @@ module.exports = {
 		return create('div', {
 			style: style + ' animation-name: resizeSensorVisibility;',
 			on: {
-				'~animationstart': vm.update.bind(vm),
+				'~animationstart': vm.update,
 			}
 		},[
 			create('div', {
 				style: style,
 				on: {
-					scroll: vm.update.bind(vm)
+					scroll: vm.update
 				}
 			}, [
 				create('div', {
@@ -58,7 +58,7 @@ module.exports = {
 			create('div', {
 				style: style,
 				on: {
-					scroll: vm.update.bind(vm)
+					scroll: vm.update
 				}
 			}, [
 				create('div', {
