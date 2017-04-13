@@ -19,26 +19,28 @@ var requestAnimationFrame = (
 module.exports = {
 
 	// thanks to https://github.com/marcj/css-element-queries
+	data: function() {
+		return {
+			size: {
+				width: -1,
+				height: -1
+			}
+		}
+	},
 	methods: {
 		update: function(ev) {
 			
-			if ( this.afci !== 0 )
-				return;
-
-			this.afci = requestAnimationFrame(function() {
-				
-				var size = { width: this.$el.offsetWidth, height: this.$el.offsetHeight };
-				
-				if ( size.width !== this.lastSize.width || size.height !== this.lastSize.height ) {
-	
-					this.lastSize = size;
-					this.$emit('resize', size);
-				};
-
-				this.afci = 0;
-			}.bind(this));
-
+			this.size.width = this.$el.offsetWidth;
+			this.size.height = this.$el.offsetHeight;
 			this.reset();
+		}
+	},
+	watch: {
+		size: {
+			deep: true,
+			handler: function(size) {
+				this.$emit('resize', size);
+			}
 		}
 	},
 	render: function(create) {
@@ -85,8 +87,6 @@ module.exports = {
 	
 	mounted: function() {
 		
-		this.afci = 0; // https://html.spec.whatwg.org/multipage/webappapis.html#animation-frame-callback-identifier
-
 		if ( 'attachEvent' in this.$el && !('AnimationEvent' in window) ) {
 
 			var onresizeHandler = function() {
