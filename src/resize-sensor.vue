@@ -17,7 +17,7 @@ module.exports = {
 		}
 	},
 	methods: {
-		update: function(ev) {
+		update: function() {
 			
 			this.size.width = this.$el.offsetWidth;
 			this.size.height = this.$el.offsetHeight;
