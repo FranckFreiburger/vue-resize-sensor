@@ -77,23 +77,32 @@ module.exports = {
 		]);
 		
 	},
+	
+	beforeDestroy: function() {
+		
+		this.$emit('resizeSensorBeforeDestroy');
+	},
+	
 	mounted: function() {
 		
 		this.afci = 0; // https://html.spec.whatwg.org/multipage/webappapis.html#animation-frame-callback-identifier
-	
-		if ( !('AnimationEvent' in window) ) {
 
-			var poll = function() {
-				
-				window.setTimeout(function() {
-					
-					if ( this.$el.offsetWidth === 0 && this.$el.offsetHeight === 0 )
-						poll();
-					else
-						this.update();
-				}.bind(this), 20)
+		if ( 'attachEvent' in this.$el && !('AnimationEvent' in window) ) {
+
+			var onresizeHandler = function() {
+
+				this.update();
+				removeOnresizeEvent();
 			}.bind(this);
-			poll();
+		
+			var removeOnresizeEvent = function() {
+				
+				this.$el.detachEvent('onresize', onresizeHandler);
+				this.$off('resizeSensorBeforeDestroy', removeOnresizeEvent);
+			}.bind(this);
+			
+			this.$el.attachEvent('onresize', onresizeHandler);
+			this.$on('resizeSensorBeforeDestroy', removeOnresizeEvent);
 		}
 
 		if ( this.$el.offsetParent !== this.$el.parentNode )
