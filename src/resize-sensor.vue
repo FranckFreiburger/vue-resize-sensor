@@ -28,6 +28,7 @@ module.exports = {
 		size: {
 			deep: true,
 			handler: function(size) {
+				
 				this.$emit('resize', size);
 			}
 		}
@@ -66,14 +67,11 @@ module.exports = {
 				})
 			]),
 		]);
-		
 	},
-	
 	beforeDestroy: function() {
 		
 		this.$emit('resizeSensorBeforeDestroy');
 	},
-	
 	mounted: function() {
 		
 		if ( 'attachEvent' in this.$el && !('AnimationEvent' in window) ) {
@@ -104,7 +102,6 @@ module.exports = {
 
 			expand.scrollLeft = 100000;
 			expand.scrollTop = 100000;
-			
 			shrink.scrollLeft = 100000;
 			shrink.scrollTop = 100000;
 		}
