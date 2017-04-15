@@ -30,7 +30,6 @@ module.exports = {
 			
 			this.size.width = this.$el.offsetWidth;
 			this.size.height = this.$el.offsetHeight;
-			this.reset();
 		}
 	},
 	watch: {
@@ -38,6 +37,7 @@ module.exports = {
 			deep: true,
 			handler: function(size) {
 				
+				this.reset();
 				this.$emit('resize', { width: this.size.width, height: this.size.height });
 			}
 		}
@@ -81,6 +81,9 @@ module.exports = {
 	},
 	mounted: function() {
 		
+		if ( this.$el.offsetParent !== this.$el.parentNode )
+			this.$el.parentNode.style.position = 'relative';
+
 		if ( 'attachEvent' in this.$el && !('AnimationEvent' in window) ) {
 
 			var onresizeHandler = function() {
@@ -97,12 +100,8 @@ module.exports = {
 			
 			this.$el.attachEvent('onresize', onresizeHandler);
 			this.$on('resizeSensorBeforeDestroy', removeOnresizeEvent);
+			this.reset();
 		}
-
-		if ( this.$el.offsetParent !== this.$el.parentNode )
-			this.$el.parentNode.style.position = 'relative';
-
-		this.reset();
 	}
 }
 
