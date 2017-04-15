@@ -17,6 +17,15 @@ module.exports = {
 		}
 	},
 	methods: {
+		reset: function() {
+
+			var expand = this.$el.firstChild;
+			var shrink = this.$el.lastChild;
+			expand.scrollLeft = 100000;
+			expand.scrollTop = 100000;
+			shrink.scrollLeft = 100000;
+			shrink.scrollTop = 100000;
+		},
 		update: function() {
 			
 			this.size.width = this.$el.offsetWidth;
@@ -92,17 +101,6 @@ module.exports = {
 
 		if ( this.$el.offsetParent !== this.$el.parentNode )
 			this.$el.parentNode.style.position = 'relative';
-
-		var expand = this.$el.childNodes[0];
-		var shrink = this.$el.childNodes[1];
-
-		this.reset = function() {
-
-			expand.scrollLeft = 100000;
-			expand.scrollTop = 100000;
-			shrink.scrollLeft = 100000;
-			shrink.scrollTop = 100000;
-		}
 
 		this.reset();
 	}
