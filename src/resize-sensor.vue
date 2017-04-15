@@ -48,9 +48,9 @@ module.exports = {
 		var styleChild = 'position: absolute; left: 0; top: 0;';
 
 		return create('div', {
-			style: style + ' animation-name: resizeSensorVisibility;',
+			style: style + 'animation-name: resizeSensorVisibility;',
 			on: {
-				'~animationstart': this.update,
+				'~animationstart': this.update
 			}
 		},[
 			create('div', {
@@ -60,7 +60,7 @@ module.exports = {
 				}
 			}, [
 				create('div', {
-					style: styleChild + ' width: 100000px; height: 100000px;'
+					style: styleChild + 'width: 100000px; height: 100000px;'
 				})
 			]),
 			create('div', {
@@ -70,7 +70,7 @@ module.exports = {
 				}
 			}, [
 				create('div', {
-					style: styleChild + ' width: 200%; height: 200%;'
+					style: styleChild + 'width: 200%; height: 200%;'
 				})
 			]),
 		]);
