@@ -29,7 +29,7 @@ module.exports = {
 			deep: true,
 			handler: function(size) {
 				
-				this.$emit('resize', size);
+				this.$emit('resize', { width: this.size.width, height: this.size.height });
 			}
 		}
 	},
