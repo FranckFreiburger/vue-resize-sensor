@@ -5,6 +5,8 @@
 </style>
 
 <script>
+"use strict";
+
 module.exports = {
 
 	// thanks to https://github.com/marcj/css-element-queries
