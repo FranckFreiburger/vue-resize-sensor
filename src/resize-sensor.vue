@@ -7,7 +7,7 @@
 <script>
 "use strict";
 
-module.exports = {
+export default {
 
 	// thanks to https://github.com/marcj/css-element-queries
 	data: function() {
