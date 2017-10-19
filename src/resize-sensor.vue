@@ -79,9 +79,12 @@ module.exports = {
 	},
 	beforeDestroy: function() {
 		
+		this.$emit('resize', { width: 0, height: 0 });
 		this.$emit('resizeSensorBeforeDestroy');
 	},
 	mounted: function() {
+
+		this.$nextTick(this.update);
 		
 		if ( this.$el.offsetParent !== this.$el.parentNode )
 			this.$el.parentNode.style.position = 'relative';
