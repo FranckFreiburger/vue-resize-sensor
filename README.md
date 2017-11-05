@@ -18,6 +18,12 @@ detect container resizing.
 
 ## API
 
+### props
+
+#### initial <sup>Boolean<sup>
+Request an initial size event.
+
+
 ### events
 
 #### @resize <sup>Object<sup>

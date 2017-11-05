@@ -10,6 +10,12 @@
 module.exports = {
 
 	// thanks to https://github.com/marcj/css-element-queries
+	props: {
+		initial: {
+			type: Boolean,
+			default: false,
+		}
+	},
 	data: function() {
 		return {
 			size: {
@@ -84,7 +90,8 @@ module.exports = {
 	},
 	mounted: function() {
 
-		this.$nextTick(this.update);
+		if ( this.initial === true )
+			this.$nextTick(this.update);
 		
 		if ( this.$el.offsetParent !== this.$el.parentNode )
 			this.$el.parentNode.style.position = 'relative';
